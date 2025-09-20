@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { getRandomInterviewCover } from '@/lib/utils';
 import { Button } from './ui/button';
 import Link from 'next/link';
-import DisplayITechIcons from './DisplayITechIcons';
+import DisplayITechIcons from './DisplayTechIcons';
 
 
 const InterviewCard = ({interviewId, userId,role,type,techstack,createdAt}: InterviewCardProps) => {

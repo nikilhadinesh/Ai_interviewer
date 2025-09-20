@@ -1,19 +1,17 @@
+// app/api/vapi/generate/route.ts
+
 import { db } from "@/firebase/admin";
+import { google } from "@ai-sdk/google";
+import { generateText } from 'ai'; // 1. Intha important import miss aagirunthuchu
 import { getRandomInterviewCover } from "@/lib/utils";
-import {google} from "@ai-sdk/google";
-import { LanguageModelV2 } from "@ai-sdk/provider";
 
-export async function GET(){
-    return Response.json({success: true, data: 'THANK YOU!'}, {status: 200})
-}
+export async function POST(request: Request) {
+    try {
+        const { type, role, level, techstack, amount, userid } = await request.json();
 
-export async function POST(request: Request){
-    const { type, role, level, techstack, amount, userid } = await request.json();
-
-    try{
         const { text: questions } = await generateText({
-      model: google("gemini-2.0-flash-001"),
-      prompt: `Prepare questions for a job interview.
+            model: google("models/gemini-1.5-flash-latest"),
+             prompt: `Prepare questions for a job interview.
         The job role is ${role}.
         The job experience level is ${level}.
         The tech stack used in the job is: ${techstack}.
@@ -26,33 +24,31 @@ export async function POST(request: Request){
         
         Thank you! <3
     `,
-    });
-     const insterview = {
-        role, type, level,
-        techstack: techstack.split(','),
-        questions: JSON.parse(questions),
-        userid: userid,
-        finalized: true,
-        coverImage: getRandomInterviewCover(),
-        createdAt: new Date().toISOString(),
-     }
+        });
 
-     await db.collection('interviews').add(insterview);
+        const interviewData = {
+            role,
+            type,
+            level,
+            techstack: techstack.split(','),
+            questions: JSON.parse(questions),
+            userid: userid,
+            finalized: true,
+            createdAt: new Date().toISOString(),
+            coverImage: getRandomInterviewCover(),
+        };
 
-     return Response.json({success:true}, {status:200});
+        // 2. Inga 'Interviews' ku bathila 'interviews' nu maathiruken
+        await db.collection('interviews').add(interviewData);
 
-    }catch(error){
-        console.error(error);
-        return Response.json({success:false, error}, {status:500});
+        return Response.json({ success: true }, { status: 200 });
+
+    } catch (error) {
+        console.error("❌ API ERROR ❌", error);
+        return Response.json({ success: false, error: (error as Error).message }, { status: 500 });
     }
-    
-    
-
 }
 
-
-
-function generateText(arg0: { model: LanguageModelV2; prompt: string; }): { text: any; } | PromiseLike<{ text: any; }> {
-    throw new Error("Function not implemented.");
+export async function GET() {
+    return Response.json({ success: true, data: "Thank you!" });
 }
-

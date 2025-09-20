@@ -15,7 +15,7 @@ const page = () => {
                 Practice on real interview questions & get instant feedback
             </p>
             <Button asChild className='btn-primary max-sm:w-full'>
-                <Link href = "/intreview">Start an interview</Link>
+                <Link href = "/interview">Start an interview</Link>
             </Button>
         </div>
         <Image src="/robot.png" alt="robot" width={400} height={400} className='max-sm:hidden'/>
