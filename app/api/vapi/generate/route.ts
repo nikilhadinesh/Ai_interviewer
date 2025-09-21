@@ -1,17 +1,17 @@
-// app/api/vapi/generate/route.ts
+import { generateText } from "ai";
+import { google } from "@ai-sdk/google";
 
 import { db } from "@/firebase/admin";
-import { google } from "@ai-sdk/google";
-import { generateText } from 'ai'; // 1. Intha important import miss aagirunthuchu
 import { getRandomInterviewCover } from "@/lib/utils";
 
 export async function POST(request: Request) {
-    try {
-        const { type, role, level, techstack, amount, userid } = await request.json();
+   console.log("My Google API Key is:", process.env.GOOGLE_GENERATIVE_AI_API_KEY);
+  const { type, role, level, techstack, amount, userid } = await request.json();
 
-        const { text: questions } = await generateText({
-            model: google("models/gemini-1.5-flash-latest"),
-             prompt: `Prepare questions for a job interview.
+  try {
+    const { text: questions } = await generateText({
+      model: google("gemini-2.0-flash-001"),
+      prompt: `Prepare questions for a job interview.
         The job role is ${role}.
         The job experience level is ${level}.
         The tech stack used in the job is: ${techstack}.
@@ -24,31 +24,29 @@ export async function POST(request: Request) {
         
         Thank you! <3
     `,
-        });
+    });
 
-        const interviewData = {
-            role,
-            type,
-            level,
-            techstack: techstack.split(','),
-            questions: JSON.parse(questions),
-            userid: userid,
-            finalized: true,
-            createdAt: new Date().toISOString(),
-            coverImage: getRandomInterviewCover(),
-        };
+    const interview = {
+      role: role,
+      type: type,
+      level: level,
+      techstack: techstack.split(","),
+      questions: JSON.parse(questions),
+      userId: userid,
+      finalized: true,
+      coverImage: getRandomInterviewCover(),
+      createdAt: new Date().toISOString(),
+    };
 
-        // 2. Inga 'Interviews' ku bathila 'interviews' nu maathiruken
-        await db.collection('interviews').add(interviewData);
+    await db.collection("interviews").add(interview);
 
-        return Response.json({ success: true }, { status: 200 });
-
-    } catch (error) {
-        console.error("❌ API ERROR ❌", error);
-        return Response.json({ success: false, error: (error as Error).message }, { status: 500 });
-    }
+    return Response.json({ success: true }, { status: 200 });
+  } catch (error) {
+    console.error("Error:", error);
+    return Response.json({ success: false, error: error }, { status: 500 });
+  }
 }
 
 export async function GET() {
-    return Response.json({ success: true, data: "Thank you!" });
+  return Response.json({ success: true, data: "Thank you!" }, { status: 200 });
 }
