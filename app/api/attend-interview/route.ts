@@ -13,7 +13,7 @@ export async function POST(request: Request) {
 
     const interviewRef = db.collection("interviews").doc(interviewId);
     
-    // Intha document la 'userid' field ah update panrom (or add panrom)
+    
     await interviewRef.update({
       userid: userId
     });

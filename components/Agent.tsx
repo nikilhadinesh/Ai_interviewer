@@ -32,10 +32,10 @@ const Agent = ({userName, userId, type, interviewId, questions}:AgentProps) => {
 useEffect(()=>{
   const onCallStart = () => setCallStatus(CallStatus.ACTIVE);
    const onCallEnd = async () => {
-        setCallStatus(CallStatus.FINISHED); // Call status ah update pannunga
+        setCallStatus(CallStatus.FINISHED); 
 
         if (type === 'interview' && interviewId && userId) {
-            // Interview mudinja odane, antha interview document la namma userId ah update panrom
+            
             try {
                 await fetch('/api/attend-interview', {
                     method: 'POST',
@@ -43,15 +43,15 @@ useEffect(()=>{
                     body: JSON.stringify({ interviewId, userId })
                 });
                 
-                // Update successful aana aprom, feedback page ku porom
+                
                 router.push(`/interview/${interviewId}/feedback`);
 
             } catch (error) {
                 console.error("Failed to update interview:", error);
-                router.push('/'); // Ethavathu prachanai na home page ku ponga
+                router.push('/'); 
             }
         } else {
-            // Generate type ah iruntha, home page ku porom
+            
             router.push('/');
         }
     };
