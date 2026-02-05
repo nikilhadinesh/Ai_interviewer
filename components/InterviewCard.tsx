@@ -47,7 +47,7 @@ const InterviewCard = async ({
   "group-hover:scale-110 group-hover:shadow-[0_0_35px_rgba(99,102,241,0.9)]";
 
   const formattedDate = dayjs(
-    feedback?.createdAt || createdAt || Date.now()
+    feedback?.createdAt || Date.now()
   ).format("MMM D, YYYY");
 
   return (
