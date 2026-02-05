@@ -184,7 +184,7 @@ const isCallInactiveOrFinished = callStatus === CallStatus.INACTIVE || callStatu
             </div>
           </div>
         )}
-        <div className="w-full flex justify-center">
+        <div className="w-full flex justify-center mt-14 mb-6">
            {callStatus !== "ACTIVE" ? (
           <button className="relative btn-call" onClick={handleCall} >
             <span

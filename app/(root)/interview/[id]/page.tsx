@@ -15,10 +15,10 @@ const page = async ({params}: RouteParams) => {
     if(!interview)redirect('/')
   return (
     <>
-    <div className='flex flex-row gap-4 justify-between'>
+    <div className='flex flex-row gap-4 justify-between w-full mb-10 items-center'>
         <div className='flex flex-row gap-4 items-center max-sm:flex-col'>
             <div className='flex flex-row gap-4 items-center'>
-                <Image src = {getRandomInterviewCover()} alt="cover-image" width={40} height={40}
+                <Image src = {interview.coverImage ||getRandomInterviewCover()} alt="cover-image" width={40} height={40}
                 className='rounded-full object-fit size-[40px]'/>
                 <h3 className='Capitalize'>{interview.role}Interview</h3>
             </div>
