@@ -35,12 +35,23 @@ const InterviewCard = async ({
     }[normalizedType] || "bg-light-800 from-indigo-500 to-violet-600 hover:shadow-[0_0_30px_rgba(99,102,241,0.9)]";
 
 
+    const imageHoverEffect =
+  {
+    Behavioral:
+      "group-hover:scale-110 group-hover:shadow-[0_0_35px_rgba(16,185,129,0.9)]",
+    Mixed:
+      "group-hover:scale-110 group-hover:shadow-[0_0_35px_rgba(245,158,11,0.9)]",
+    Technical:
+      "group-hover:scale-110 group-hover:shadow-[0_0_35px_rgba(99,102,241,0.9)]",
+  }[normalizedType] ||
+  "group-hover:scale-110 group-hover:shadow-[0_0_35px_rgba(99,102,241,0.9)]";
+
   const formattedDate = dayjs(
     feedback?.createdAt || createdAt || Date.now()
   ).format("MMM D, YYYY");
 
   return (
-    <div className="card-border w-[360px] max-sm:w-full min-h-96">
+    <div className="card-border group w-[360px] max-sm:w-full min-h-96">
       <div className="card-interview">
         <div>
           {/* Type Badge */}
@@ -59,7 +70,10 @@ const InterviewCard = async ({
             alt="cover-image"
             width={90}
             height={90}
-            className="rounded-full object-fit size-[90px]"
+           className={cn(
+    "rounded-full object-fit size-[90px] transition-all duration-500 ease-out",
+    imageHoverEffect
+  )}
           />
 
           {/* Interview Role */}

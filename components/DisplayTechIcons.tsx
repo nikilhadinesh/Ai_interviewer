@@ -16,7 +16,7 @@ const DisplayTechIcons = async ({ techStack }: TechIconProps) => {
             index >= 1 && "-ml-3"
           )}
         >
-          <span className="tech-tooltip">{tech}</span>
+          {/* <span className="tech-tooltip">{tech}</span> */}
 
           <Image
             src={url}
