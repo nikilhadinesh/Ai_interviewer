@@ -1,68 +1,113 @@
+import dayjs from "dayjs";
+import Link from "next/link";
+import Image from "next/image";
+
+import { Button } from "./ui/button";
+import DisplayTechIcons from "./DisplayTechIcons";
+
+import { cn, getRandomInterviewCover } from "@/lib/utils";
+import { getFeedbackByInterviewId } from "@/lib/actions/general.action";
+
+const InterviewCard = async ({
+  interviewId,
+  userId,
+  role,
+  type,
+  techstack,
+  createdAt,
+  coverImage
+}: InterviewCardProps) => {
+  const feedback =
+    userId && interviewId
+      ? await getFeedbackByInterviewId({
+          interviewId,
+          userId,
+        })
+      : null;
+
+  const normalizedType = /mix/gi.test(type) ? "Mixed" : type;
+
+  const badgeColor =
+    {
+      Behavioral: "bg-light-800 from-emerald-400 to-green-500 hover:shadow-[0_0_30px_rgba(16,185,129,0.9)]",
+      Mixed: "bg-light-800 from-amber-400 to-yellow-500 hover:shadow-[0_0_30px_rgba(245,158,11,0.9)]",
+      Technical: "bg-light-800 from-indigo-500 to-violet-600 hover:shadow-[0_0_30px_rgba(99,102,241,0.9)]",
+    }[normalizedType] || "bg-light-800 from-indigo-500 to-violet-600 hover:shadow-[0_0_30px_rgba(99,102,241,0.9)]";
 
 
-import 'datejs'
-import Image from 'next/image';
-import { getRandomInterviewCover } from '@/lib/utils';
-import { Button } from './ui/button';
-import Link from 'next/link';
-import DisplayITechIcons from './DisplayTechIcons';
-import { id } from 'zod/v4/locales';
+  const formattedDate = dayjs(
+    feedback?.createdAt || createdAt || Date.now()
+  ).format("MMM D, YYYY");
 
+  return (
+    <div className="card-border w-[360px] max-sm:w-full min-h-96">
+      <div className="card-interview">
+        <div>
+          {/* Type Badge */}
+          <div
+            className={cn(
+              "absolute top-0 right-0 w-fit px-4 py-2 rounded-bl-lg",
+              badgeColor
+            )}
+          >
+            <p className="badge-text ">{normalizedType}</p>
+          </div>
 
-type InterviewCardProps = {
-    id: string;
-    userId: string;
-    role: string;
-    type: string;
-    techstack: string[];
-    createdAt: string | number | Date;
-    
+          {/* Cover Image */}
+          <Image
+            src={coverImage || getRandomInterviewCover()}
+            alt="cover-image"
+            width={90}
+            height={90}
+            className="rounded-full object-fit size-[90px]"
+          />
+
+          {/* Interview Role */}
+          <h3 className="mt-5 capitalize">{role} Interview</h3>
+
+          {/* Date & Score */}
+          <div className="flex flex-row gap-5 mt-3">
+            <div className="flex flex-row gap-2">
+              <Image
+                src="/calendar.svg"
+                width={22}
+                height={22}
+                alt="calendar"
+              />
+              <p>{formattedDate}</p>
+            </div>
+
+            <div className="flex flex-row gap-2 items-center">
+              <Image src="/star.svg" width={22} height={22} alt="star" />
+              <p>{feedback?.totalScore || "---"}/100</p>
+            </div>
+          </div>
+
+          {/* Feedback or Placeholder Text */}
+          <p className="line-clamp-2 mt-5">
+            {feedback?.finalAssessment ||
+              "You haven't taken this interview yet. Take it now to improve your skills."}
+          </p>
+        </div>
+
+        <div className="flex flex-row justify-between">
+          <DisplayTechIcons techStack={techstack} />
+
+          <Button className="relative overflow-hidden bg-gradient-to-r from-violet-500 to-indigo-500 text-white font-medium px-6 py-2 rounded-full transition-all duration-300 ease-out hover:-translate-y-1 hover:scale-[1.03] hover:shadow-[0_0_30px_rgba(139,92,246,0.8)] before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/30 before:to-transparent before:translate-x-[-100%] before:transition-transform before:duration-700 hover:before:translate-x-[100%]">
+            <Link
+              href={
+                feedback
+                  ? `/interview/${interviewId}/feedback`
+                  : `/interview/${interviewId}`
+              }
+            >
+              {feedback ? "Check Feedback" : "View Interview"}
+            </Link>
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
 };
 
-const InterviewCard = ({id, userId,role,type,techstack,createdAt}: InterviewCardProps) => {
-    
-    const feedback = null as Feedback | null;
-    const normalizedType = /mix/gi.test(type) ? "Mixed" : type;
-    const formattedDate = new Date(feedback?.createdAt || createdAt || Date.now()).toString("MMM d, yyyy");
-    
-
-    return(
-        <div className='card-border w-[360] max sm:w-full min-h-96'>
-            <div className='card-interview'>
-                <div>
-                    <div className='absolute top-0 right-0 w-fit px-4 py-2 rounded-bl-lg bg-light-600 max-sm:flex-col'>
-                        <p className='badge-text'>{normalizedType}</p>
-                    </div>
-                    <Image src={getRandomInterviewCover()} alt="cover image" width={90} height={90} className='rounded-full object-fit size-[90px]'/>
-                     
-                    <h3 className='mt-5 capitalize'>{role} Interview</h3>
-                    <div className='flex flex-row gap-5 mt-3'>
-                        <div className='flex flex-row gap-2'>
-                            <Image src="/calendar.svg" alt="calendar" width={22} height={22} />
-                            <p>{formattedDate}</p>
-                        </div>
-                        <div className='flex flex-row gap-2 items-center'>
-                            <Image src="/star.svg" alt="star" width={22} height={22} />
-                            <p>{feedback?.totalScore || '---'}/100</p>
-                        </div>
-                    </div>
-                    <p className='linee-clamp-2 mt-5'>{feedback?.finalAssessment || "you haven't taken the interview yet. Take it now to imporove your skills."}</p>
-                </div>
-                <div className='flex flex-row justify-between'>
-                    <DisplayITechIcons techStack={techstack} />
-                    <Button className='btn-primary'>
-                        <Link href = {feedback
-                            ? `/interview/${id}/feedback`
-                            : `/interview/${id}`
-                        }>
-                            {feedback? 'Check FeedBack' : 'View Interview'}
-                        </Link>
-                        
-                    </Button>
-                </div>
-            </div>
-        </div>
-    )
-}
-
-export default InterviewCard
+export default InterviewCard;

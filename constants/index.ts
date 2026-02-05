@@ -95,7 +95,8 @@ export const mappings = {
   contentful: "contentful",
   netlify: "netlify",
   vercel: "vercel",
-  
+  linux: "linux",
+  C: "c",
   "aws amplify": "amplify",
   python: "python",
   java: "java",

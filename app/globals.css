@@ -1,5 +1,6 @@
 @import "tailwindcss";
 
+
 @plugin "tailwindcss-animate";
 
 @custom-variant dark (&:is(.dark *));
@@ -24,7 +25,7 @@
 
   --font-mona-sans: "Mona Sans", sans-serif;
 
-  --bg-pattern: url("/mass.jpg");
+  --bg-pattern: url("/pattern.jpg");
 }
 
 :root {
@@ -249,6 +250,7 @@
     }
   }
 
+
   .section-feedback {
     @apply flex flex-col gap-8 max-w-5xl mx-auto max-sm:px-4 text-lg leading-7;
 
@@ -303,8 +305,13 @@
 }
 
 @utility pattern {
-  @apply bg-[url('/pattern.png')] bg-top bg-no-repeat;
+  background-image: url('/top.png'), url('/pattern.png');
+  background-position: bottom right, top center;
+  background-repeat: no-repeat, no-repeat;
+  background-size: 400px, auto;
+  background-attachment: fixed, fixed;
 }
+
 
 @utility blue-gradient-dark {
   @apply bg-gradient-to-b from-[#171532] to-[#08090D];

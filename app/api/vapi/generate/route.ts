@@ -1,16 +1,16 @@
 import { generateText } from "ai";
-import { google } from "@ai-sdk/google";
+import { groq } from "@ai-sdk/groq";
 
 import { db } from "@/firebase/admin";
 import { getRandomInterviewCover } from "@/lib/utils";
 
 export async function POST(request: Request) {
-   console.log("My Google API Key is:", process.env.GOOGLE_GENERATIVE_AI_API_KEY);
+   console.log("My Google API Key is:", process.env.GROQ_API_KEY);
   const { type, role, level, techstack, amount, userid } = await request.json();
 
   try {
     const { text: questions } = await generateText({
-      model: google("gemini-2.0-flash-001"),
+      model: groq("llama-3.3-70b-versatile") as unknown as any,
       prompt: `Prepare questions for a job interview.
         The job role is ${role}.
         The job experience level is ${level}.

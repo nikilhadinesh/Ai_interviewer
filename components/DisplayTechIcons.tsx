@@ -6,8 +6,9 @@ const DisplayTechIcons = async ({ techStack }: TechIconProps) => {
   const techIcons = await getTechLogos(techStack);
 
   return (
-    <div className="flex flex-row">
+    <div className="flex flex-row justify-between">
       {techIcons.slice(0, 3).map(({ tech, url }, index) => (
+        
         <div
           key={tech}
           className={cn(
