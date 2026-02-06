@@ -194,35 +194,28 @@ const Agent = ({
         </div>
       )}
 
-      {/* 🔥 UPDATE: Dynamic Positioning based on Call Status */}
-<div
-  className={cn(
-    "flex justify-center w-full", // Center alignment common for both
-    callStatus === "ACTIVE"
-      ? "relative mt-10 mb-10" // ✅ ACTIVE: Transcript keela flow aagum
-      : "absolute bottom-4 left-1/2 -translate-x-1/2" // ✅ INACTIVE: Screen bottom la fix aagum
-  )}
->
-  {callStatus !== "ACTIVE" ? (
-    <button className="relative btn-call" onClick={() => handleCall()}>
-      <span
-        className={cn(
-          "absolute animate-ping rounded-full opacity-75",
-          callStatus !== "CONNECTING" && "hidden"
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2">
+        {callStatus !== "ACTIVE" ? (
+          <button className="relative btn-call" onClick={() => handleCall()}>
+            <span
+              className={cn(
+                "absolute animate-ping rounded-full opacity-75",
+                callStatus !== "CONNECTING" && "hidden"
+              )}
+            />
+
+            <span className="relative">
+              {callStatus === "INACTIVE" || callStatus === "FINISHED"
+                ? "Call"
+                : ". . ."}
+            </span>
+          </button>
+        ) : (
+          <button className="btn-disconnect" onClick={() => handleDisconnect()}>
+            End
+          </button>
         )}
-      />
-      <span className="relative">
-        {callStatus === "INACTIVE" || callStatus === "FINISHED"
-          ? "Call"
-          : ". . ."}
-      </span>
-    </button>
-  ) : (
-    <button className="btn-disconnect" onClick={() => handleDisconnect()}>
-      End
-    </button>
-  )}
-</div>
+      </div>
     </>
   );
 };
