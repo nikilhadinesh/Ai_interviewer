@@ -179,7 +179,7 @@ const Agent = ({
       </div>
 
       {messages.length > 0 && (
-        <div className="transcript-border mt-10">
+        <div className="transcript-border">
           <div className="transcript">
             <p
               key={lastMessage}
@@ -194,7 +194,7 @@ const Agent = ({
         </div>
       )}
 
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2">
+      <div className="relative flex justify-center w-full mt-10 mb-10">
         {callStatus !== "ACTIVE" ? (
           <button className="relative btn-call" onClick={() => handleCall()}>
             <span
@@ -207,7 +207,7 @@ const Agent = ({
             <span className="relative">
               {callStatus === "INACTIVE" || callStatus === "FINISHED"
                 ? "Call"
-                : ". . ."}
+                : "Wait"}
             </span>
           </button>
         ) : (
