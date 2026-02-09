@@ -32,11 +32,11 @@ export async function createFeedback(params: CreateFeedbackParams) {
         {
           "totalScore": number (0-100),
           "categoryScores": {
-            "communicationSkills": { "score": number, "comment": "string" },
-            "technicalKnowledge": { "score": number, "comment": "string" },
-            "problemSolving": { "score": number, "comment": "string" },
-            "culturalFit": { "score": number, "comment": "string" },
-            "confidence": { "score": number, "comment": "string" }
+            "communicationSkills": { "score": number (0-10), "comment": "string" },
+            "technicalKnowledge": { "score": number (0-10), "comment": "string" },
+            "problemSolving": { "score": number (0-10), "comment": "string" },
+            "culturalFit": { "score": number (0-10), "comment": "string" },
+            "confidence": { "score": number (0-10), "comment": "string" }
           },
           "strengths": ["string", "string"],
           "areasForImprovement": ["string", "string"],

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { Hourglass, Target, TrendingUp } from "lucide-react"; 
 
 import { Button } from "@/components/ui/button";
 import InterviewCard from "@/components/InterviewCard";
@@ -25,14 +26,46 @@ async function Home() {
     <>
       <section className="card-cta">
         <div className="flex flex-col gap-6 max-w-lg">
-          <h2>Get Interview-Ready with AI-Powered Practice & Feedback</h2>
-          <p className="text-lg">
-            Practice real interview questions & get instant feedback
-          </p>
+          <h2 className="text-3xl font-extrabold tracking-tight">
+      Unleash Your Potential 
+    </h2>
+          <ul className="flex flex-col gap-4 text-base text-white/90">
+      
+      {/* Point 1: Time Management */}
+      <li className="flex items-start gap-3">
+        <div className="p-2 bg-white/10 rounded-lg shrink-0">
+              <Hourglass className="w-6 h-6 text-yellow-400" />
+            </div>
+        <p>
+          <span className="font-bold text-white">Respect the Clock:</span> The timer is running! Avoid delays longer than 10 seconds. Think fast, speak sharp.
+        </p>
+      </li>
 
-          <Button asChild className="btn-primary max-sm:w-full">
+      {/* Point 2: Focus & Confidence */}
+      <li className="flex items-start gap-3">
+         <div className="p-2 bg-white/10 rounded-lg shrink-0">
+              <Target className="w-6 h-6 text-red-400" />
+            </div>
+        <p>
+          <span className="font-bold text-white">Own the Moment:</span> Maintain focus. Don't interrupt the AI. Stay calm, be confident, and let your voice shine.
+        </p>
+      </li>
+
+      {/* Point 3: Feedback & Growth */}
+      <li className="flex items-start gap-3">
+        <div className="p-2 bg-white/10 rounded-lg shrink-0">
+              <TrendingUp className="w-6 h-6 text-green-400" />
+            </div>
+        <p>
+          <span className="font-bold text-white">Evolve & Win:</span> Low score? No problem! Check the feedback, learn from mistakes, and retry until you master it.
+        </p>
+      </li>
+
+    </ul>
+
+          {/* <Button asChild className="btn-primary max-sm:w-full">
             <Link href="/interview">Start an Interview</Link>
-          </Button>
+          </Button> */}
         </div>
 
         <Image

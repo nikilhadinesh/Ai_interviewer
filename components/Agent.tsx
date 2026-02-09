@@ -179,7 +179,7 @@ const Agent = ({
       </div>
 
       {messages.length > 0 && (
-        <div className="transcript-border">
+        <div className="transcript-border relative mt-12">
           <div className="transcript">
             <p
               key={lastMessage}

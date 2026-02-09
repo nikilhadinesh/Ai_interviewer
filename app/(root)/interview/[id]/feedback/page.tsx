@@ -93,20 +93,20 @@ const Feedback = async ({ params }: RouteParams) => {
       </div>
 
       <div className="buttons">
-        <Button className="btn-secondary flex-1">
-          <Link href="/" className="flex w-full justify-center">
-            <p className="text-sm font-semibold text-primary-200 text-center">
+        <Button className="flex-1 relative overflow-hidden bg-gradient-to-r from-gray-700 to-gray-900 text-white font-medium px-6 py-2 rounded-full transition-all duration-300 ease-out hover:-translate-y-1 hover:scale-[1.03] hover:shadow-[0_0_30px_rgba(160,160,160,0.5)] before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent before:translate-x-[-100%] before:transition-transform before:duration-700 hover:before:translate-x-[100%]">
+          <Link href="/" className="flex w-full justify-center z-10">
+            <p className="text-sm font-semibold text-gray-200 group-hover:text-white text-center">
               Back to dashboard
             </p>
           </Link>
         </Button>
 
-        <Button className="btn-primary flex-1">
+        <Button className="flex-1 relative overflow-hidden bg-gradient-to-r from-violet-500 to-indigo-500 text-white font-medium px-6 py-2 rounded-full transition-all duration-300 ease-out hover:-translate-y-1 hover:scale-[1.03] hover:shadow-[0_0_30px_rgba(139,92,246,0.8)] before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/30 before:to-transparent before:translate-x-[-100%] before:transition-transform before:duration-700 hover:before:translate-x-[100%]">
           <Link
             href={`/interview/${id}`}
-            className="flex w-full justify-center"
+            className="flex w-full justify-center relative z-10"
           >
-            <p className="text-sm font-semibold text-black text-center">
+            <p className="text-sm font-semibold text-white text-center">
               Retake Interview
             </p>
           </Link>
