@@ -92,7 +92,7 @@ const InterviewCard = async ({
             </div>
 
             <div className="flex flex-row gap-2 items-center">
-              <Image src="/star.svg" width={22} height={22} alt="star" />
+              <Image src="/star-svgrepo-com.svg" width={18} height={18} alt="star" />
               <p>{feedback?.totalScore || "---"}/100</p>
             </div>
           </div>
