@@ -83,7 +83,7 @@ const InterviewCard = async ({
           <div className="flex flex-row gap-5 mt-3">
             <div className="flex flex-row gap-2">
               <Image
-                src="/calendar.svg"
+                src="/calender2.svg"
                 width={22}
                 height={22}
                 alt="calendar"
